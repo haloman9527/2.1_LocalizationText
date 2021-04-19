@@ -10,7 +10,7 @@ using CZToolKit.Core.Editors;
 
 namespace CZToolKit.LocalizationText.Editor
 {
-    public class LocalizationEditorWindow : BasicEditorWindow<LocalizationEditorWindow>
+    public class LocalizationEditorWindow : BasicEditorWindow
     {
         public static LocalizationEditorWindow Current;
         public string filePath;
