@@ -27,7 +27,6 @@ namespace CZToolKit.LocalizationText
         public static string SerializeTable(string[][] _dataTable)
         {
             StringBuilder sb = new StringBuilder();
-            string line;
             for (int lineIndex = 0; lineIndex < _dataTable.Length; lineIndex++)
             {
                 sb.AppendLine(SerializeTableLine(_dataTable[lineIndex]));
@@ -38,8 +37,6 @@ namespace CZToolKit.LocalizationText
         public static string[] DeserializeTableLine(string line)
         {
             string[] fields = CSVParser.Split(line);
-            if (fields.Length <= 0)
-                return fields;
             for (int f = 0; f < fields.Length; f++)
             {
                 fields[f] = fields[f].Substring(fields[f].IndexOf(surround) + 1);
