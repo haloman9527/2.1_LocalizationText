@@ -2,7 +2,7 @@
 
 namespace CZToolKit.LocalizationText.Editor
 {
-    public class LanguageTreeViewItemPool : Pool<LanguageTreeViewItem>
+    public class LanguageTreeViewItemPool : PoolBase<LanguageTreeViewItem>
     {
         /// <summary> 回收所有 </summary>
         public override void RecycleAll()
