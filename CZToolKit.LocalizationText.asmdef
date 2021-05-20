@@ -1,7 +1,8 @@
 {
     "name": "CZToolKit.LocalizationText",
     "references": [
-        "GUID:5957643ee62fb75498d29ee03d7011ef"
+        "GUID:5957643ee62fb75498d29ee03d7011ef",
+        "GUID:51750772d91bb3143826fe84594cf9ea"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
