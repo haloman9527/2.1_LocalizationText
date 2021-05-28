@@ -14,7 +14,7 @@ namespace CZToolKit.LocalizationText
         protected string beforeText = "???";
 
         private const string MatchRegex = "(<#)([^\\s(<#|#>)]+)(#>)";
-        private const string MatchRegex1 = "(<LT>)([^<|>]+)(</LT>)";
+        private const string MatchRegex1 = "<LT>([^<|>]+)</LT>";
         private static Regex regex = new Regex(MatchRegex1);
 
         public string BeforeText
