@@ -13,6 +13,12 @@ namespace CZToolKit.LocalizationText.Editor
     public class LocalizationEditorWindow : BasicEditorWindow
     {
         public static LocalizationEditorWindow Current;
+        [MenuItem("Tools/CZToolKit/Localization", priority = 4)]
+        public static void Open()
+        {
+            GetWindow<LocalizationEditorWindow>("LocalizationEditor");
+        }
+
         public string filePath;
         public DataFormat dataFormat = DataFormat.Json;
         private Dictionary<string, int> languages = new Dictionary<string, int>();
@@ -30,16 +36,9 @@ namespace CZToolKit.LocalizationText.Editor
         public Dictionary<string, int> Languages { get { return languages; } }
         public Dictionary<string, string[]> DataTable { get { return dataTable; } }
 
-        [MenuItem("Tools/CZToolKit/Localization")]
-        public static void Open()
-        {
-            GetWindow<LocalizationEditorWindow>();
-        }
-
         protected void OnEnable()
         {
             Current = this;
-            this.titleContent = new GUIContent("LocalizationEditor", EditorGUIUtility.FindTexture("BoxCollider2D Icon"));
 
             if (!string.IsNullOrEmpty(filePath))
                 Load(filePath, out languages, out dataTable);
@@ -140,7 +139,7 @@ namespace CZToolKit.LocalizationText.Editor
         {
             languages = new Dictionary<string, int>();
             valueTable = new Dictionary<string, string[]>();
-            string text = File.ReadAllText(path,Encoding.UTF8);
+            string text = File.ReadAllText(path, Encoding.UTF8);
             dataFormat = path.EndsWith("json") ? DataFormat.Json : DataFormat.CSV;
             LocalizationData data = LocalizationSystem.Load(text, dataFormat);
             languages = data.Languages;
