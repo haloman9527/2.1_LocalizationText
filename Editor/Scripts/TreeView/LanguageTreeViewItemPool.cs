@@ -8,5 +8,10 @@ namespace CZToolKit.LocalizationText.Editor
         {
             return new LanguageTreeViewItem();
         }
+
+        public override void Dispose()
+        {
+
+        }
     }
 }
