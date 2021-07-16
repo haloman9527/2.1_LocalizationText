@@ -1,4 +1,19 @@
-﻿using CZToolKit.LocalizationText;
+#region 注 释
+/***
+ *
+ *  Title:
+ *  
+ *  Description:
+ *  
+ *  Date:
+ *  Version:
+ *  Writer: 半只龙虾人
+ *  Github: https://github.com/HalfLobsterMan
+ *  Blog: https://www.crosshair.top/
+ *
+ */
+#endregion
+using CZToolKit.LocalizationText;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
