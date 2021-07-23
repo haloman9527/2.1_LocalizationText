@@ -1,10 +1,13 @@
 {
-    "name": "CZToolKit.LocalizationText",
+    "name": "CZToolKit.LocalizationText.Editors",
     "references": [
         "GUID:5957643ee62fb75498d29ee03d7011ef",
-        "GUID:51750772d91bb3143826fe84594cf9ea"
+        "GUID:51750772d91bb3143826fe84594cf9ea",
+        "GUID:f397ff26b408d7d40a3cec0538a11adb"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

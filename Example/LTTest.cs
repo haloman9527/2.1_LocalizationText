@@ -30,7 +30,7 @@ public class LTTest : MonoBehaviour
     {
         dropdown = transform.Find("Dropdown").GetComponent<Dropdown>();
         dropdown.onValueChanged.AddListener(OnDropDownValueChanged);
-        LocalizationSystem.Init(textAsset.text, DataFormat.Json);
+        LocalizationSystem.Init(textAsset.text, DataFormat.CSV);
         if (LocalizationSystem.TryGetLanguages(out string[] languages))
         {
             foreach (string item in languages)

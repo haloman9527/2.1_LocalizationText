@@ -55,10 +55,8 @@ namespace CZToolKit.LocalizationText.Editor
                     });
                     menu.AddItem(new GUIContent($"Rename [{GetColumn(tempI).headerContent.text}]"), false, () =>
                     {
-                        RenameLanguageWindow renameWindow = RenameLanguageWindow.Open(LocalizationEditorWindow.Current.position.position + GetColumnRect(tempI).position + Vector2.up * 90);
                         string oldName = GetColumn(tempI).headerContent.text;
-                        renameWindow.languageName = oldName;
-                        renameWindow.onFinished = newName => { Rename(oldName, newName); };
+                        PopupWindow.Show(new Rect(GetColumnRect(tempI).position + Vector2.up * 100, Vector2.zero), new RenameLanguageWindow(oldName, newName => { Rename(oldName, newName); }));
                     });
                     break;
                 }

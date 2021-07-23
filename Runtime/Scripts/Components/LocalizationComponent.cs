@@ -28,8 +28,8 @@ namespace CZToolKit.LocalizationText
         [ReadOnly]
         protected string beforeText = "???";
 
-        private const string MatchRegex = "(<#)([^\\s(<#|#>)]+)(#>)";
-        private const string MatchRegex1 = "<LT>([^<|>]+)</LT>";
+        const string MatchRegex = "(<#)([^\\s(<#|#>)]+)(#>)";
+        const string MatchRegex1 = "<LT>([^<|>]+)</LT>";
         private static Regex regex = new Regex(MatchRegex1);
 
         public string BeforeText
@@ -63,10 +63,9 @@ namespace CZToolKit.LocalizationText
             MatchCollection matchCollection = regex.Matches(beforeText);
             foreach (Match item in matchCollection)
             {
-                if (LocalizationSystem.TryGetLocalisedValue(item.Groups[2].Value, out string value))
+                if (LocalizationSystem.TryGetLocalisedValue(item.Groups[1].Value, out string value))
                     sb.Replace(item.Value, value);
             }
-
             return sb.ToString();
         }
     }
