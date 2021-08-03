@@ -187,7 +187,7 @@ namespace CZToolKit.LocalizationText
             Dictionary<string, int> tempLanguages = new Dictionary<string, int>();
             Dictionary<string, string[]> tempValueTable = new Dictionary<string, string[]>();
             bool langs = false;
-            CSVLoader.DeserializeTable(dataText, (values) =>
+            CSVLoader.DeserializeEachLine(dataText, (values) =>
             {
                 if (!langs)
                 {

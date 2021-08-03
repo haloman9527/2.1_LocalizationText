@@ -21,10 +21,9 @@ namespace CZToolKit.LocalizationText
 {
     public static class CSVLoader
     {
-        private const char lineSperator = '\n';
-        private const char surround = '"';
-        private static string fieldSperator = "\",\"";
-        private static Regex CSVParser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+        const char LINE_SPERATOR = '\n';
+        static string fieldSperator = "\",\"";
+        static Regex CSVParser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
 
         public static string SerializeTableLine(string[] _fields)
         {
@@ -54,24 +53,37 @@ namespace CZToolKit.LocalizationText
             string[] fields = CSVParser.Split(line);
             for (int f = 0; f < fields.Length; f++)
             {
-                fields[f] = fields[f].Substring(fields[f].IndexOf(surround) + 1);
-                fields[f] = fields[f].Remove(fields[f].LastIndexOf(surround));
+                if (fields[f].Contains(","))
+                {
+                    fields[f] = fields[f].Substring(1);
+                    fields[f] = fields[f].Remove(fields[f].LastIndexOf("\""));
+                }
                 fields[f] = fields[f].Replace("\"\"", "\"");
             }
             return fields;
         }
 
-        public static void DeserializeTable(string text, Action<string[]> everyLineCallback)
+        public static string[][] DeserializeTable(string text)
         {
-            string[] lines = text.Split(lineSperator);
+            string[] lines = text.Split(LINE_SPERATOR);
             string[][] dataTable = new string[lines.Length][];
-            bool callback = everyLineCallback != null;
             for (int i = 0; i < lines.Length; i++)
             {
                 if (string.IsNullOrEmpty(lines[i])) continue;
                 string[] fields = DeserializeTableLine(lines[i]);
-                everyLineCallback(fields);
                 dataTable[i] = fields;
+            }
+            return dataTable;
+        }
+
+        public static void DeserializeEachLine(string text, Action<string[]> eachLineCallback)
+        {
+            string[] lines = text.Split(LINE_SPERATOR);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (string.IsNullOrEmpty(lines[i])) continue;
+                string[] fields = DeserializeTableLine(lines[i]);
+                eachLineCallback(fields);
             }
         }
     }
