@@ -13,6 +13,7 @@
  *
  */
 #endregion
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -80,3 +81,4 @@ namespace CZToolKit.LocalizationText.Editor
     //    }
     //}
 }
+#endif

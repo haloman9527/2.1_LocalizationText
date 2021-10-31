@@ -13,6 +13,7 @@
  *
  */
 #endregion
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.IMGUI.Controls;
@@ -267,3 +268,4 @@ namespace CZToolKit.LocalizationText.Editor
         }
     }
 }
+#endif

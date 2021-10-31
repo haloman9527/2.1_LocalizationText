@@ -13,6 +13,7 @@
  *
  */
 #endregion
+#if UNITY_EDITOR
 using CZToolKit.Core.ObjectPool;
 
 namespace CZToolKit.LocalizationText.Editor
@@ -30,3 +31,4 @@ namespace CZToolKit.LocalizationText.Editor
         }
     }
 }
+#endif
