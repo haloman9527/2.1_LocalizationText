@@ -21,6 +21,7 @@ using UnityEngine;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine.Events;
 using System;
+using CZToolKit.Core.ObjectPool;
 
 namespace CZToolKit.LocalizationText.Editor
 {
@@ -34,7 +35,7 @@ namespace CZToolKit.LocalizationText.Editor
         private Dictionary<int, TreeViewItem> idItems = new Dictionary<int, TreeViewItem>();
         private Dictionary<string, TreeViewItem> keyItems = new Dictionary<string, TreeViewItem>();
 
-        private LanguageTreeViewItemPool treeViewItemPool = new LanguageTreeViewItemPool();
+        private ObjectPool<LanguageTreeViewItem> treeViewItemPool = new ObjectPool<LanguageTreeViewItem>(() => new LanguageTreeViewItem(), null, null, null);
 
         public LanguageTreeView(TreeViewState state) : base(state)
         {
@@ -74,8 +75,8 @@ namespace CZToolKit.LocalizationText.Editor
             TreeViewItem root = new TreeViewItem { id = -1, depth = -1, displayName = "Root" };
 
             root.children = new List<TreeViewItem>();
-            treeViewItemPool.RecycleAll();
-            
+            treeViewItemPool.Dispose();
+
             idItems.Clear();
             keyItems.Clear();
             char[] search = Convert.ToString(searchFlags, 2).PadLeft(LocalizationEditorWindow.Current.Languages.Count + 1, '0').ToCharArray();
@@ -177,7 +178,7 @@ namespace CZToolKit.LocalizationText.Editor
             {
                 if (multiColumnHeader.IsColumnVisible(i + 1))
                 {
-                    rect = args.GetCellRect(i+1);
+                    rect = args.GetCellRect(i + 1);
                     GUI.Label(rect, new GUIContent(item.values[i], item.values[i]));
                     GUI.Box(new Rect(rect.x + rect.width, rect.y, 2, rect.height), "");
                     //showIndex++;
