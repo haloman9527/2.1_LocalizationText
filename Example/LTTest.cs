@@ -14,6 +14,7 @@
  */
 #endregion
 using CZToolKit.LocalizationText;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ public class LTTest : MonoBehaviour
     public Button btnSetValue;
     public TextAsset textAsset;
 
+    [LabelText("123")]
     public LocalizationText text;
 
     void Awake()
