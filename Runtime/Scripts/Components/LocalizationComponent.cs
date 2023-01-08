@@ -15,7 +15,7 @@
 #endregion
 using System.Text.RegularExpressions;
 using UnityEngine;
-using CZToolKit.Core.Attributes;
+using CZToolKit.Common.Attributes;
 using System.Text;
 
 namespace CZToolKit.LocalizationText

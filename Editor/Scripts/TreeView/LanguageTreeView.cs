@@ -21,7 +21,7 @@ using UnityEngine;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine.Events;
 using System;
-using CZToolKit.Core.ObjectPool;
+using CZToolKit.Common.ObjectPool;
 
 namespace CZToolKit.LocalizationText.Editor
 {

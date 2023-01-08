@@ -22,8 +22,8 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
-using CZToolKit.Core.Editors;
-using CZToolKit.Core;
+using CZToolKit.Common.Editors;
+using CZToolKit.Common;
 
 namespace CZToolKit.LocalizationText.Editor
 {
