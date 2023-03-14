@@ -19,7 +19,6 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine.Events;
-using UnityEngine.SocialPlatforms;
 
 namespace CZToolKit.LocalizationText.Editor
 {

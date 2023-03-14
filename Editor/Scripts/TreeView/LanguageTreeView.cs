@@ -1,4 +1,5 @@
 #region 注 释
+
 /***
  *
  *  Title:
@@ -12,7 +13,9 @@
  *  Blog: https://www.crosshair.top/
  *
  */
+
 #endregion
+
 #if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +38,7 @@ namespace CZToolKit.LocalizationText.Editor
         private Dictionary<int, TreeViewItem> idItems = new Dictionary<int, TreeViewItem>();
         private Dictionary<string, TreeViewItem> keyItems = new Dictionary<string, TreeViewItem>();
 
-        private ObjectPool<LanguageTreeViewItem> treeViewItemPool = new ObjectPool<LanguageTreeViewItem>(() => new LanguageTreeViewItem(), null, null, null);
+        private SimpleObjectPool<LanguageTreeViewItem> treeViewItemPool = new SimpleObjectPool<LanguageTreeViewItem>() { generateFunction = () => new LanguageTreeViewItem() };
 
         public LanguageTreeView(TreeViewState state) : base(state)
         {
@@ -75,7 +78,7 @@ namespace CZToolKit.LocalizationText.Editor
             TreeViewItem root = new TreeViewItem { id = -1, depth = -1, displayName = "Root" };
 
             root.children = new List<TreeViewItem>();
-            treeViewItemPool.Dispose();
+            treeViewItemPool.Release();
 
             idItems.Clear();
             keyItems.Clear();
@@ -98,6 +101,7 @@ namespace CZToolKit.LocalizationText.Editor
                     root.children.Add(item);
                     continue;
                 }
+
                 for (int i = 0; i < pair.Value.Length; i++)
                 {
                     int index = i;
@@ -141,6 +145,7 @@ namespace CZToolKit.LocalizationText.Editor
             {
                 RemoveSelectionItems();
             }
+
             if (Event.current.control && Event.current.type == EventType.KeyDown)
             {
                 if (Event.current.keyCode == KeyCode.C)
@@ -207,6 +212,7 @@ namespace CZToolKit.LocalizationText.Editor
                     if (copyCache != null)
                         menu.AddItem(new GUIContent("Paste"), false, Paste, copyCache);
                 }
+
                 menu.ShowAsContext();
             }
         }
