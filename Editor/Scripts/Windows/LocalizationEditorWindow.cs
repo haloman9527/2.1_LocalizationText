@@ -27,7 +27,7 @@ using CZToolKit.Common;
 
 namespace CZToolKit.LocalizationText.Editor
 {
-    public class LocalizationEditorWindow : BasicEditorWindow
+    public class LocalizationEditorWindow : BaseEditorWindow
     {
         public static LocalizationEditorWindow Current;
         [MenuItem("Tools/CZToolKit/Localization", priority = 4)]

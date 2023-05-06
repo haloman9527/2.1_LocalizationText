@@ -30,15 +30,22 @@ namespace CZToolKit.LocalizationText.Editor
 {
     public class LanguageTreeView : TreeView
     {
+        public class LanguageTreeViewItemPool : ObjectPool<LanguageTreeViewItem>
+        {
+            protected override LanguageTreeViewItem Generate()
+            {
+                return new LanguageTreeViewItem();
+            }
+        }
+
         public UnityAction onLanguageCountChanged;
 
         private int searchFlags;
         private TreeViewItem copyCache;
-        private LocalizationMultiColumnHeader header;
         private Dictionary<int, TreeViewItem> idItems = new Dictionary<int, TreeViewItem>();
         private Dictionary<string, TreeViewItem> keyItems = new Dictionary<string, TreeViewItem>();
 
-        private SimpleObjectPool<LanguageTreeViewItem> treeViewItemPool = new SimpleObjectPool<LanguageTreeViewItem>() { generateFunction = () => new LanguageTreeViewItem() };
+        private LanguageTreeViewItemPool treeViewItemPool = new LanguageTreeViewItemPool();
 
         public LanguageTreeView(TreeViewState state) : base(state)
         {
@@ -52,7 +59,6 @@ namespace CZToolKit.LocalizationText.Editor
         {
             rowHeight = 20;
             showBorder = true;
-            header = multiColumnHeader as LocalizationMultiColumnHeader;
             this.searchString = searchText;
             this.searchFlags = searchFlags;
             Reload();
@@ -94,7 +100,6 @@ namespace CZToolKit.LocalizationText.Editor
                 {
                     id++;
                     LanguageTreeViewItem item = treeViewItemPool.Spawn();
-                    //LanguageTreeViewItem item = new LanguageTreeViewItem(id, 0, pair.Key, pair.Value);
                     item.Set(id, 0, pair.Key, pair.Value);
                     idItems[id] = item;
                     keyItems[pair.Key] = item;
@@ -129,10 +134,7 @@ namespace CZToolKit.LocalizationText.Editor
 
                 return 0;
             });
-            //foreach (var item in root.children)
-            //{
-            //    Debug.Log((item as LanguageTreeViewItem).values[0]);
-            //}
+            
             SetupDepthsFromParentsAndChildren(root);
             return root;
         }
