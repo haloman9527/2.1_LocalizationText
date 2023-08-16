@@ -32,7 +32,7 @@ namespace CZToolKit.LocalizationText.Editor
     {
         public class LanguageTreeViewItemPool : ObjectPool<LanguageTreeViewItem>
         {
-            protected override LanguageTreeViewItem Generate()
+            protected override LanguageTreeViewItem Create()
             {
                 return new LanguageTreeViewItem();
             }
@@ -84,7 +84,7 @@ namespace CZToolKit.LocalizationText.Editor
             TreeViewItem root = new TreeViewItem { id = -1, depth = -1, displayName = "Root" };
 
             root.children = new List<TreeViewItem>();
-            treeViewItemPool.Release();
+            treeViewItemPool.Dispose();
 
             idItems.Clear();
             keyItems.Clear();
