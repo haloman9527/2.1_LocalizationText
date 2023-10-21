@@ -1,4 +1,5 @@
 #region 注 释
+
 /***
  *
  *  Title:
@@ -12,11 +13,13 @@
  *  Blog: https://www.crosshair.top/
  *
  */
+
 #endregion
+
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CZToolKit.LocalizationText
+namespace CZToolKit.I18N
 {
     /// <summary> 此脚本用于处理Text组件的多文本 </summary>
     [RequireComponent(typeof(Text))]
@@ -24,21 +27,15 @@ namespace CZToolKit.LocalizationText
     {
         private Text text;
 
-        void Awake()
+        protected override void Awake()
         {
             text = GetComponent<Text>();
-            SetText(text.text);
+            ParseKey();
         }
 
-        public override void SetText(string _text)
+        protected override void RefreshText(string text)
         {
-            beforeText = _text;
-            Refresh();
-        }
-
-        public override void Refresh()
-        {
-            text.text = GetAfterText(beforeText);
+            this.text.text = text;
         }
     }
 }

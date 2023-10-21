@@ -15,7 +15,7 @@
 #endregion
 using UnityEngine;
 
-namespace CZToolKit.LocalizationText
+namespace CZToolKit.I18N
 {
     /// <summary>
     /// 此脚本用于处理Text组件的多文本
@@ -25,26 +25,15 @@ namespace CZToolKit.LocalizationText
     {
         private TextMesh text;
 
-        void Awake()
+        protected override void Awake()
         {
             text = GetComponent<TextMesh>();
-            SetText(text.text);
+            ParseKey();
         }
 
-        /// <summary>
-        /// 参数是key
-        /// </summary>
-        /// <param name="key"></param>
-        public override void SetText(string key)
+        protected override void RefreshText(string text)
         {
-            base.beforeText = key;
-            Refresh();
-        }
-
-        public override void Refresh()
-        {
-            if (LocalizationSystem.TryGetLocalisedValue(beforeText,out string value))
-                text.text = value;
+            this.text.text = text;
         }
     }
 }
