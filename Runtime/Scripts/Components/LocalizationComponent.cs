@@ -39,6 +39,7 @@ namespace CZToolKit.I18N
         protected virtual void Awake()
         {
             Localization.Instance.OnLanguageChanged += ParseKey;
+            ParseKey();
         }
 
         protected virtual void OnDestroy()

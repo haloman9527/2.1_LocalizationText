@@ -18,25 +18,97 @@
 
 using System;
 using System.Collections.Generic;
-using CZToolKit.Config;
+using CZToolKit.ConfigManagement;
+using CZToolKit.ResourceManagement;
 using CZToolKit.Singletons;
 using UnityEngine;
 
 namespace CZToolKit.I18N
 {
-    public class Localization : Singleton<Localization>, ISingletonAwake
+    public class Localization : Singleton<Localization>, ILocalization, ISingletonAwake
     {
-        private Language language;
-        private Dictionary<string, string> data = new Dictionary<string, string>();
+        private IResourceManager resourceManager;
+        private IConfigManager configManager;
 
-        public Action OnLanguageChanged;
+        private Language language;
+        private LanguageData languageData;
+        private Dictionary<Language, LanguageData> languageDatas;
+
+        public event Action OnLanguageChanged;
 
         public void Awake()
         {
-            this.language = (Language)ConfigManager.Instance.GetInt("Language", (int)GetSystemLanguage());
+            languageData = null;
+            languageDatas = new Dictionary<Language, LanguageData>();
         }
 
-        public Language GetSystemLanguage()
+        /// <summary>
+        /// 设置资源管理器.
+        /// </summary>
+        /// <param name="resourceManager"></param>
+        public void SetResourceManager(IResourceManager resourceManager)
+        {
+            this.resourceManager = resourceManager;
+        }
+
+        /// <summary>
+        /// 设置配置管理器.
+        /// </summary>
+        /// <param name="configManager"></param>
+        public void SetConfigManager(IConfigManager configManager)
+        {
+            this.configManager = configManager;
+        }
+
+        public void Init()
+        {
+            SetLanguage((Language)ConfigManager.Instance.GetInt("Language", (int)GetSystemLanguage()));
+        }
+
+        public void SetLanguage(Language newLauguage)
+        {
+            if (this.language == newLauguage)
+                return;
+
+            // 预处理要读取的语言配置
+            var dataLanguage = newLauguage;
+            switch (newLauguage)
+            {
+                case Language.ChineseSimplified:
+                case Language.ChineseTraditional:
+                {
+                    dataLanguage = Language.ChineseSimplified;
+                    break;
+                }
+                default:
+                {
+                    dataLanguage = Language.English;
+                    break;
+                }
+            }
+            
+            if (!languageDatas.TryGetValue(dataLanguage, out var data))
+            {
+                // 读取配置文件
+                data = new LanguageData();
+                data.language = dataLanguage;
+                
+                languageDatas[dataLanguage] = data;
+            }
+
+            this.language = newLauguage;
+            languageData = languageDatas[newLauguage];
+            OnLanguageChanged?.Invoke();
+        }
+
+        public string GetText(string key)
+        {
+            
+            languageDatas[language].data.TryGetValue(key, out var text);
+            return text;
+        }
+
+        public static Language GetSystemLanguage()
         {
             switch (Application.systemLanguage)
             {
@@ -85,12 +157,6 @@ namespace CZToolKit.I18N
                 case UnityEngine.SystemLanguage.Vietnamese: return Language.Vietnamese;
                 default: return Language.Unspecified;
             }
-        }
-
-        public string GetText(string key)
-        {
-            data.TryGetValue(key, out var text);
-            return text;
         }
     }
 }
