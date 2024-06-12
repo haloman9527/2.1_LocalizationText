@@ -18,16 +18,12 @@
 
 using System;
 using System.Collections.Generic;
-using CZToolKit;
 using UnityEngine;
 
 namespace CZToolKit.I18N
 {
     public class Localization : Singleton<Localization>, ILocalization, ISingletonAwake
     {
-        private IResourceManager resourceManager;
-        private IConfigManager configManager;
-
         private Language language;
         private LanguageData languageData;
         private Dictionary<Language, LanguageData> languageDatas;
@@ -40,25 +36,7 @@ namespace CZToolKit.I18N
             languageDatas = new Dictionary<Language, LanguageData>();
         }
 
-        /// <summary>
-        /// 设置资源管理器.
-        /// </summary>
-        /// <param name="resourceManager"></param>
-        public void SetResourceManager(IResourceManager resourceManager)
-        {
-            this.resourceManager = resourceManager;
-        }
-
-        /// <summary>
-        /// 设置配置管理器.
-        /// </summary>
-        /// <param name="configManager"></param>
-        public void SetConfigManager(IConfigManager configManager)
-        {
-            this.configManager = configManager;
-        }
-
-        public void Init()
+        public void Init(bool force = false)
         {
             SetLanguage((Language)ConfigManager.Instance.GetInt("Language", (int)GetSystemLanguage()));
         }
