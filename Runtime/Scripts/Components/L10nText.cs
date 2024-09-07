@@ -19,23 +19,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CZToolKit.I18N
+namespace CZToolKit.L10N
 {
-    /// <summary> 此脚本用于处理Text组件的多文本 </summary>
     [RequireComponent(typeof(Text))]
-    public sealed class LocalizationText : LocalizationComponent
+    public sealed class L10nText : L10nComponent
     {
         private Text text;
 
         protected override void Awake()
         {
             text = GetComponent<Text>();
-            ParseKey();
+            base.Awake();
         }
 
-        protected override void RefreshText(string text)
+        public override void Refresh()
         {
-            this.text.text = text;
+            text.text = L10nManager.Instance.GetText(Key);
         }
     }
 }

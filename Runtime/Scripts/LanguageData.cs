@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace CZToolKit.I18N
+namespace CZToolKit.L10N
 {
-    public class LanguageData
+    public class LanguageData : ILanguageData
     {
-        public Language language;
-        public Dictionary<string, string> data = new Dictionary<string, string>();
+        public Dictionary<int, string> data = new Dictionary<int, string>();
+
+        public bool TryGetText(int key, out string text)
+        {
+            return data.TryGetValue(key, out text);
+        }
     }
 }

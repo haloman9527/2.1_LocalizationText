@@ -1,10 +1,11 @@
 #region 注 释
+
 /***
  *
  *  Title:
- *  
+ *
  *  Description:
- *  
+ *
  *  Date:
  *  Version:
  *  Writer: 半只龙虾人
@@ -12,28 +13,27 @@
  *  Blog: https://www.haloman.net/
  *
  */
+
 #endregion
+
 using UnityEngine;
 
-namespace CZToolKit.I18N
+namespace CZToolKit.L10N
 {
-    /// <summary>
-    /// 此脚本用于处理Text组件的多文本
-    /// </summary>
     [RequireComponent(typeof(TextMesh))]
-    public sealed class LocalizationTextMesh : LocalizationComponent
+    public sealed class L10nTextMesh : L10nComponent
     {
         private TextMesh text;
 
         protected override void Awake()
         {
             text = GetComponent<TextMesh>();
-            ParseKey();
+            base.Awake();
         }
 
-        protected override void RefreshText(string text)
+        public override void Refresh()
         {
-            this.text.text = text;
+            text.text = L10nManager.Instance.GetText(Key);
         }
     }
 }
