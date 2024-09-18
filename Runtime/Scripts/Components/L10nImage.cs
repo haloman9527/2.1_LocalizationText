@@ -28,8 +28,8 @@ namespace CZToolKit.L10N
 
         protected override void Awake()
         {
-            img = GetComponent<Image>();
             base.Awake();
+            img = GetComponent<Image>();
         }
 
         public override async void Refresh()

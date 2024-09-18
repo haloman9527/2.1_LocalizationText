@@ -27,8 +27,8 @@ namespace CZToolKit.L10N
 
         protected override void Awake()
         {
-            text = GetComponent<TextMesh>();
             base.Awake();
+            text = GetComponent<TextMesh>();
         }
 
         public override void Refresh()

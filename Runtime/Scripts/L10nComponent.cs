@@ -16,6 +16,7 @@
 
 #endregion
 
+using System;
 using UnityEngine;
 
 namespace CZToolKit.L10N
@@ -41,13 +42,26 @@ namespace CZToolKit.L10N
 
         protected virtual void Awake()
         {
-            L10nManager.Instance.RegisterL10NComponent(this);
-            Refresh();
+            if (L10nManager.Instance != null)
+            {
+                L10nManager.Instance.RegisterL10NComponent(this);
+            }
+        }
+
+        private void Start()
+        {
+            if (L10nManager.Instance != null)
+            {
+                Refresh();
+            }
         }
 
         protected virtual void OnDestroy()
         {
-            L10nManager.Instance.UnRegisterL10NComponent(this);
+            if (L10nManager.Instance != null)
+            {
+                L10nManager.Instance.UnRegisterL10NComponent(this);
+            }
         }
 
         public abstract void Refresh();
