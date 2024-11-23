@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CZToolKit.L10N
+namespace Jiange.L10N
 {
     public class LanguageData : ILanguageData
     {

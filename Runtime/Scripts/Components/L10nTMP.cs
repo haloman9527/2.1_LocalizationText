@@ -19,7 +19,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace CZToolKit.L10N
+namespace Jiange.L10N
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
     public sealed class L10nTMP : L10nComponent

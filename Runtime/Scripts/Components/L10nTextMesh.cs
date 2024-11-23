@@ -18,7 +18,7 @@
 
 using UnityEngine;
 
-namespace CZToolKit.L10N
+namespace Jiange.L10N
 {
     [RequireComponent(typeof(TextMesh))]
     public sealed class L10nTextMesh : L10nComponent

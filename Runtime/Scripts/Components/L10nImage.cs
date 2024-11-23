@@ -19,7 +19,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CZToolKit.L10N
+namespace Jiange.L10N
 {
     [RequireComponent(typeof(Image))]
     public sealed class L10nImage : L10nComponent

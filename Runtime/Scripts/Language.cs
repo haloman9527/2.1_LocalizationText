@@ -1,4 +1,4 @@
-﻿namespace CZToolKit.L10N
+﻿namespace Jiange.L10N
 {
     /// <summary>本地化语言。</summary>
     public enum Language : byte

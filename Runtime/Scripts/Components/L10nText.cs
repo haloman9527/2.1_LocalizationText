@@ -19,7 +19,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CZToolKit.L10N
+namespace Jiange.L10N
 {
     [RequireComponent(typeof(Text))]
     public sealed class L10nText : L10nComponent

@@ -19,7 +19,7 @@
 using System;
 using UnityEngine;
 
-namespace CZToolKit.L10N
+namespace Jiange.L10N
 {
     public abstract class L10nComponent : MonoBehaviour, IL10n
     {
