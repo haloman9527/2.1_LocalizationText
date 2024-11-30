@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Jiange.L10N
+namespace Moyo.L10N
 {
     public class LanguageData : ILanguageData
     {

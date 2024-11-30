@@ -19,7 +19,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Jiange.L10N
+namespace Moyo.L10N
 {
     [RequireComponent(typeof(Image))]
     public sealed class L10nImage : L10nComponent

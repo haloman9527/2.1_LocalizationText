@@ -18,7 +18,7 @@
 
 using UnityEngine;
 
-namespace Jiange.L10N
+namespace Moyo.L10N
 {
     [RequireComponent(typeof(TextMesh))]
     public sealed class L10nTextMesh : L10nComponent
