@@ -19,7 +19,7 @@
 using System;
 using UnityEngine;
 
-namespace Moyo.L10N
+namespace Moyo.L10n
 {
     public abstract class L10nComponent : MonoBehaviour, IL10n
     {

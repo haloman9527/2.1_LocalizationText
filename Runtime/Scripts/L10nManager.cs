@@ -19,7 +19,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Moyo.L10N
+namespace Moyo.L10n
 {
     public class L10nManager : Singleton<L10nManager>
     {
