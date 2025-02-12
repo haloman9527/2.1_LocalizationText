@@ -96,4 +96,22 @@ namespace Moyo.L10n
 
         void Refresh();
     }
+
+    public struct SwitchLanguage
+    {
+        public Language language;
+
+        public SwitchLanguage(Language language)
+        {
+            this.language = language;
+        }
+    }
+
+    public class SwitchLanguageEvent : GlobalEvent<SwitchLanguage>
+    {
+        public override void Invoke(SwitchLanguage arg)
+        {
+            L10nManager.Instance?.SetLanguage(arg.language);
+        }
+    }
 }
