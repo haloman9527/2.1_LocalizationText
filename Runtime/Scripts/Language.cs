@@ -1,4 +1,4 @@
-﻿namespace Moyo.L10n
+﻿namespace Atom.L10n
 {
     /// <summary>本地化语言。</summary>
     public enum Language : byte

@@ -19,7 +19,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Moyo.L10n
+namespace Atom.L10n
 {
     [RequireComponent(typeof(RawImage))]
     public sealed class L10nRawImage : L10nComponent

@@ -19,7 +19,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Moyo.L10n
+namespace Atom.L10n
 {
     [RequireComponent(typeof(Text))]
     public sealed class L10nText : L10nComponent

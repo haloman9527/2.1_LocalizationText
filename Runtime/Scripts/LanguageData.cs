@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Moyo.L10n
+namespace Atom.L10n
 {
     public class LanguageData : ILanguageData
     {
