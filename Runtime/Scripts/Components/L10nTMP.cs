@@ -24,17 +24,17 @@ namespace Atom.L10n
     [RequireComponent(typeof(TextMeshProUGUI))]
     public sealed class L10nTMP : L10nComponent
     {
-        private TextMeshProUGUI text;
+        private TextMeshProUGUI m_Component;
 
         protected override void Awake()
         {
             base.Awake();
-            text = GetComponent<TextMeshProUGUI>();
+            m_Component = GetComponent<TextMeshProUGUI>();
         }
 
         public override void Refresh()
         {
-            text.text = L10nManager.Instance.GetText(Key);
+            m_Component.text = L10nManager.Instance.GetText(Key);
         }
     }
 }

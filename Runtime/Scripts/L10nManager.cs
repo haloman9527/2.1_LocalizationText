@@ -23,56 +23,48 @@ namespace Atom.L10n
 {
     public class L10nManager : Singleton<L10nManager>
     {
-        private Language language;
-        private Language rollbackLanguage;
-        private Func<Language, ILanguageData> languageLoader;
-        private Dictionary<Language, ILanguageData> languageDatas = new Dictionary<Language, ILanguageData>();
+        private Language m_Language;
+        private Language m_RollbackLanguage;
+        private Func<Language, ILanguageData> m_LanguageLoader;
+        private Dictionary<Language, ILanguageData> m_LanguageDatas;
+        private HashSet<IL10n> m_Components;
 
-        private HashSet<IL10n> l10nComponents = new HashSet<IL10n>();
+        public L10nManager(Language language, Language rollbackLanguage, Func<Language, ILanguageData> languageLoader)
+        {
+            m_Language = language;
+            m_RollbackLanguage = rollbackLanguage;
+            m_LanguageLoader = languageLoader;
+            m_LanguageDatas = new Dictionary<Language, ILanguageData>();
+            m_Components = new HashSet<IL10n>(8);
+            m_LanguageDatas[m_RollbackLanguage] = m_LanguageLoader(m_RollbackLanguage);
+        }
 
         public Language Language
         {
-            get => language;
+            get => m_Language;
             set => SetLanguage(value);
         }
 
-        public void Init(Language rollbackLanguage, Func<Language, ILanguageData> languageLoader)
+        public void Register(IL10n component)
         {
-            this.rollbackLanguage = rollbackLanguage;
-            this.languageLoader = languageLoader;
-            this.languageDatas[rollbackLanguage] = languageLoader(rollbackLanguage);
+            m_Components.Add(component);
         }
 
-        public void RegisterL10NComponent(IL10n l10n)
+        public void Unregister(IL10n component)
         {
-            l10nComponents.Add(l10n);
+            m_Components.Remove(component);
         }
 
-        public void UnRegisterL10NComponent(IL10n l10n)
+        public void SetLanguage(Language language)
         {
-            l10nComponents.Remove(l10n);
-        }
-
-        public void SetLanguage(Language newLanguage)
-        {
-            if (!languageDatas.TryGetValue(newLanguage, out var data))
-            {
-                languageDatas[newLanguage] = data = languageLoader(newLanguage);
-            }
-
-            if (data == null)
-            {
-                newLanguage = rollbackLanguage;
-            }
-
-            if (this.language == newLanguage)
-            {
+            if (m_Language == language)
                 return;
-            }
+            m_LanguageDatas.Remove(language);
+            m_Language = language;
+            if (!m_LanguageDatas.ContainsKey(m_Language))
+                m_LanguageDatas[m_Language] = m_LanguageLoader(language);
 
-            this.language = newLanguage;
-
-            foreach (var l10n in l10nComponents)
+            foreach (var l10n in m_Components)
             {
                 l10n.Refresh();
             }
@@ -80,8 +72,13 @@ namespace Atom.L10n
 
         public string GetText(int key)
         {
-            languageDatas[language].TryGetText(key, out var text);
-            return text;
+            var language = m_LanguageDatas[m_Language];
+            var rollbackLanguage = m_LanguageDatas[m_RollbackLanguage];
+            if (language.TryGetText(key, out var text))
+                return text;
+            else if (rollbackLanguage.TryGetText(key, out var rollbackText))
+                return rollbackText;
+            return "undefined text";
         }
     }
 
@@ -97,19 +94,19 @@ namespace Atom.L10n
         void Refresh();
     }
 
-    public struct SwitchLanguage
+    public struct SwitchLanguageEvent
     {
         public Language language;
 
-        public SwitchLanguage(Language language)
+        public SwitchLanguageEvent(Language language)
         {
             this.language = language;
         }
     }
 
-    public class SwitchLanguageEvent : GlobalEvent<SwitchLanguage>
+    public class SwitchLanguageEventHandlerBase : GlobalEventBase<SwitchLanguageEvent>
     {
-        public override void Invoke(SwitchLanguage arg)
+        public override void Invoke(SwitchLanguageEvent arg)
         {
             L10nManager.Instance?.SetLanguage(arg.language);
         }

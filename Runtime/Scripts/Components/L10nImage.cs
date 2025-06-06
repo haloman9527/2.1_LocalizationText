@@ -21,22 +21,23 @@ using UnityEngine.UI;
 
 namespace Atom.L10n
 {
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(Image))]
     public sealed class L10nImage : L10nComponent
     {
-        private Image img;
+        private Image m_Component;
 
         protected override void Awake()
         {
             base.Awake();
-            img = GetComponent<Image>();
+            m_Component = GetComponent<Image>();
         }
 
         public override async void Refresh()
         {
             var handle = ResourceManager.Instance.LoadAssetAsync<Sprite>(L10nManager.Instance.GetText(Key));
             await handle.Task;
-            img.sprite = handle.Asset as Sprite;
+            m_Component.sprite = handle.Asset as Sprite;
         }
     }
 }

@@ -21,14 +21,15 @@ using UnityEngine.UI;
 
 namespace Atom.L10n
 {
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(RawImage))]
     public sealed class L10nRawImage : L10nComponent
     {
-        private RawImage img;
+        private RawImage m_Component;
 
         protected override void Awake()
         {
-            img = GetComponent<RawImage>();
+            m_Component = GetComponent<RawImage>();
             base.Awake();
         }
 
@@ -36,7 +37,7 @@ namespace Atom.L10n
         {
             var handle = ResourceManager.Instance.LoadAssetAsync<Texture>(L10nManager.Instance.GetText(Key));
             await handle.Task;
-            img.texture = handle.Asset as Texture;
+            m_Component.texture = handle.Asset as Texture;
         }
     }
 }

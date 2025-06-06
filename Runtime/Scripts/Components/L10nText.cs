@@ -24,17 +24,17 @@ namespace Atom.L10n
     [RequireComponent(typeof(Text))]
     public sealed class L10nText : L10nComponent
     {
-        private Text text;
+        private Text m_Component;
 
         protected override void Awake()
         {
-            text = GetComponent<Text>();
+            m_Component = GetComponent<Text>();
             base.Awake();
         }
 
         public override void Refresh()
         {
-            text.text = L10nManager.Instance.GetText(Key);
+            m_Component.text = L10nManager.Instance.GetText(Key);
         }
     }
 }

@@ -23,17 +23,17 @@ namespace Atom.L10n
     [RequireComponent(typeof(TextMesh))]
     public sealed class L10nTextMesh : L10nComponent
     {
-        private TextMesh text;
+        private TextMesh m_Component;
 
         protected override void Awake()
         {
             base.Awake();
-            text = GetComponent<TextMesh>();
+            m_Component = GetComponent<TextMesh>();
         }
 
         public override void Refresh()
         {
-            text.text = L10nManager.Instance.GetText(Key);
+            m_Component.text = L10nManager.Instance.GetText(Key);
         }
     }
 }

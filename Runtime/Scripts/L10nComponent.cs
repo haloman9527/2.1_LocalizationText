@@ -16,7 +16,6 @@
 
 #endregion
 
-using System;
 using UnityEngine;
 
 namespace Atom.L10n
@@ -44,7 +43,7 @@ namespace Atom.L10n
         {
             if (L10nManager.Instance != null)
             {
-                L10nManager.Instance.RegisterL10NComponent(this);
+                L10nManager.Instance.Register(this);
             }
         }
 
@@ -60,7 +59,7 @@ namespace Atom.L10n
         {
             if (L10nManager.Instance != null)
             {
-                L10nManager.Instance.UnRegisterL10NComponent(this);
+                L10nManager.Instance.Unregister(this);
             }
         }
 
