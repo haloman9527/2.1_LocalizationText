@@ -21,7 +21,7 @@ using System.Collections.Generic;
 
 namespace Atom.L10n
 {
-    public class L10nManager : Singleton<L10nManager>
+    public class L10nManager : SingletonBase<L10nManager>
     {
         private Language m_Language;
         private Language m_RollbackLanguage;
@@ -31,12 +31,12 @@ namespace Atom.L10n
 
         public L10nManager(Language language, Language rollbackLanguage, Func<Language, ILanguageData> languageLoader)
         {
-            m_Language = language;
             m_RollbackLanguage = rollbackLanguage;
             m_LanguageLoader = languageLoader;
             m_LanguageDatas = new Dictionary<Language, ILanguageData>();
             m_Components = new HashSet<IL10n>(8);
             m_LanguageDatas[m_RollbackLanguage] = m_LanguageLoader(m_RollbackLanguage);
+            SetLanguage(language);
         }
 
         public Language Language
