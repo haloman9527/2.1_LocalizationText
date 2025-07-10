@@ -106,7 +106,7 @@ namespace Atom.L10n
 
     public class SwitchLanguageEventHandlerBase : GlobalEventBase<SwitchLanguageEvent>
     {
-        public override void Invoke(SwitchLanguageEvent arg)
+        public override void Invoke(in SwitchLanguageEvent arg)
         {
             L10nManager.Instance?.SetLanguage(arg.language);
         }
