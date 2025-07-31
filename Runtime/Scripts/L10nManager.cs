@@ -21,8 +21,15 @@ using System.Collections.Generic;
 
 namespace Atom.L10n
 {
-    public class L10nManager : SingletonBase<L10nManager>
+    public class L10nManager : GameModule
     {
+        private static L10nManager s_Instance;
+
+        public static L10nManager Instance
+        {
+            get { return s_Instance; }
+        }
+        
         private Language m_Language;
         private Language m_RollbackLanguage;
         private Func<Language, ILanguageData> m_LanguageLoader;
@@ -51,6 +58,27 @@ namespace Atom.L10n
             get { return m_AssetLoader; }
         }
 
+        public void SetAssetLoader(IAssetLoader assetLoader)
+        {
+            this.m_AssetLoader = assetLoader;
+        }
+
+        public override void Init()
+        {
+            if (s_Instance == null)
+            {
+                s_Instance = this;
+            }
+        }
+
+        public override void Shutdown()
+        {
+            if (s_Instance == this)
+            {
+                s_Instance = null;
+            }
+        }
+
         public void Register(IL10n component)
         {
             m_Components.Add(component);
@@ -59,11 +87,6 @@ namespace Atom.L10n
         public void Unregister(IL10n component)
         {
             m_Components.Remove(component);
-        }
-
-        public void SetAssetLoader(IAssetLoader assetLoader)
-        {
-            this.m_AssetLoader = assetLoader;
         }
 
         public void SetLanguage(Language language)
