@@ -35,7 +35,7 @@ namespace Atom.L10n
 
         public override async void Refresh()
         {
-            var handle = ResourceManager.Instance.LoadAssetAsync<Texture>(L10nManager.Instance.GetText(Key));
+            var handle = L10nManager.Instance.AssetLoader.LoadAssetAsync<Texture>(L10nManager.Instance.GetText(Key));
             await handle.Task;
             m_Component.texture = handle.Asset as Texture;
         }

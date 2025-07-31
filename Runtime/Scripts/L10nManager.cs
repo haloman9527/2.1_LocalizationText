@@ -28,6 +28,7 @@ namespace Atom.L10n
         private Func<Language, ILanguageData> m_LanguageLoader;
         private Dictionary<Language, ILanguageData> m_LanguageDatas;
         private HashSet<IL10n> m_Components;
+        private IAssetLoader m_AssetLoader;
 
         public L10nManager(Language language, Language rollbackLanguage, Func<Language, ILanguageData> languageLoader)
         {
@@ -45,6 +46,11 @@ namespace Atom.L10n
             set => SetLanguage(value);
         }
 
+        public IAssetLoader AssetLoader
+        {
+            get { return m_AssetLoader; }
+        }
+
         public void Register(IL10n component)
         {
             m_Components.Add(component);
@@ -53,6 +59,11 @@ namespace Atom.L10n
         public void Unregister(IL10n component)
         {
             m_Components.Remove(component);
+        }
+
+        public void SetAssetLoader(IAssetLoader assetLoader)
+        {
+            this.m_AssetLoader = assetLoader;
         }
 
         public void SetLanguage(Language language)
