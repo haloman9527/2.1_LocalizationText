@@ -127,22 +127,4 @@ namespace Atom.L10n
 
         void Refresh();
     }
-
-    public struct SwitchLanguageEvent
-    {
-        public Language language;
-
-        public SwitchLanguageEvent(Language language)
-        {
-            this.language = language;
-        }
-    }
-
-    public class SwitchLanguageEventHandlerBase : GlobalEventBase<SwitchLanguageEvent>
-    {
-        public override void Invoke(in SwitchLanguageEvent arg)
-        {
-            L10nManager.Instance?.SetLanguage(arg.language);
-        }
-    }
 }
