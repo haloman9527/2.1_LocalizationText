@@ -3,7 +3,6 @@
     "rootNamespace": "",
     "references": [
         "Atom.Lib",
-        "Atom.Unity.Resource",
         "Unity.TextMeshPro"
     ],
     "includePlatforms": [],

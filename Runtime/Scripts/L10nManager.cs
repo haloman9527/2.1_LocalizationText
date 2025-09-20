@@ -92,16 +92,4 @@ namespace Atom.L10n
             return "undefined text";
         }
     }
-
-    public interface ILanguageData
-    {
-        bool TryGetText(int key, out string text);
-    }
-
-    public interface IL10n
-    {
-        int Key { get; set; }
-
-        void Refresh();
-    }
 }
